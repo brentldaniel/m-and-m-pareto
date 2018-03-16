@@ -1,0 +1,78 @@
+---
+title: "The M&M Color Study"
+author: "Brent L Daniel"
+date: "February - March, 2018"
+output:
+  prettydoc::html_pretty:
+    theme: cayman
+    highlight: github
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+````{r, echo=FALSE}
+
+````
+
+## M&Ms are colorful, fun and make for great data
+
+I bet when you open a bag of M&Ms, you look at a few of them in your hand, admire the pretty color variation that exists, and just **eat them**. Yes, I used to do that, too. But in March, 2014, I spilled bag of M&Ms onto my desk and noticed something odd. I used a tool from my days as a Six Sigma Black Belt and created a Pareto Chart, and snapped this picture:
+
+((replace with picture with only one Brown M&M))
+
+Wait a minute! Only one brown? Why aren't they more even?
+
+To make a long story short, I posted this on Facebook, and started routinely making "M&M Pareto Charts" and posting them to an album. A friend joined in and posted ones with Peanut M&Ms. As of today, we have logged ((make dynamic)) bags of M&Ms in this manner.
+
+And recently, I compiled the posts into a data set. 
+
+## M&Ms and the questions I might ask about colors
+
+This story is about data, how to manipulate it and analyze it with data visualization tools, and in so doing explore many aspects of the colors of M&Ms! 
+
+I became fascinated by what I was seeing because I saw so much variation. I mean, the naive person might just assume that every bag had (roughly) the same amount of each color. You could imagine a manufacturing process that did that, right? But could you imagine a manufacturing process that wasn't predictable in terms of the distribution of colors? That's what I was seeing!
+
+As I looked at these pictures, I came to be curious about a number of things:
+
+* how often is there only one of one color?
+* how does a bag have only five of the six colors?
+* does blue really dominate the counts, as it seems to?
+* how does the color distribution differ by size of bag?
+    + are smaller bags more variable? 
+    + are smaller bags more likely to have missing colors?
+    + what's different about the largest bags?
+* do Peanut and Plain M&Ms have similar color distrubtions?
+
+## maybe add pictures for each question?
+
+### Why Pareto Charts of M&Ms
+
+- pretty
+- category is its own label (show bag and distribution vs. picture)
+
+
+
+## Preparing the data for analysis
+# Tidy set, untidy set, pros and cons
+
+- kind of data: categorical, nominal
+
+## 
+```{r}
+vals <- c(2, 4, 1,2,4,3)
+colorsm <- c("Yellow","Blue","Green","Brown","Orange","Red")
+dft<-data.frame(vals,colorsm)
+
+```
+
+## Including Plots
+
+You can also embed plots, for example:
+
+```{r pressure, echo=FALSE}
+plot(pressure)
+```
+
+Note that the `echo = FALSE` parameter was added to the code chunk to prevent printing of the R code that generated the plot.
