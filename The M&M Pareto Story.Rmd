@@ -9,7 +9,7 @@ output:
 ---
 
 ```{r setup, include=FALSE}
-knitr::opts_chunk$set(echo = TRUE)
+knitr::opts_chunk$set(echo = TRUE, warning=FALSE)
 ```
 
 # Introduction
@@ -60,7 +60,7 @@ Arranging the M&Ms as a Pareto chart* was natural to me because it is a typical 
 1. The charts are pretty!
 2. The category is its own label!
 
-[*One might argue that these are not, technically, Pareto Charts, owing to the missing cumulative frequency line oft found on them. They may be simply termed as a "decreasing frequency bar chart". But I'll call them Pareto Charts here.]
+<span style="color:#156803">[*One might argue that these are not, technically, Pareto Charts, owing to the missing cumulative frequency line oft found on them. They may be simply termed as a "decreasing frequency bar chart". But I'll call them Pareto Charts here.]</span>
 
 Point #2 above, is easy to demonstrate. Let's look at how we might chart a bag of M&Ms using R:
 
@@ -86,7 +86,9 @@ ggplot(dfcase, aes(fct_infreq(colorsm)))+
 
 ```
 
+
 This *Dot Plot* is not very satisfying. Notice how each colum is labeled?  Maybe we can adjust the sizes of the circles and decrease the gaps, but that might be a lot of work. We can, in fact, remove those labels, as I will show in the next kind of chart of the same data:
+
 
 ```{r}
 # same chart as a bar chart.
@@ -109,7 +111,9 @@ dfcase %>%
 
 ```
 
+
 But really, this *Bar Chart* is just not as satisfying as the actual photo of the M&Ms:
+
 
 ![One Bag](OneBagExample.jpg)
 
@@ -158,6 +162,7 @@ head(df_tidy)
 
 As I analyzed this data, however, I found that I wanted to know things about the **bags** more often than I wanted to find the attributes of the set as a whole, as if the bags weren't dumped all together.  For example, I wanted to add the **total number of M&Ms** to each bag:
 
+
 ```{r}
 # add bag count, so you can determine sizing ranges
 df$BagCount <- rowSums(df[4:9])
@@ -172,9 +177,11 @@ df_tidy <- df %>% tibble::rownames_to_column("BagNum") %>%
   arrange(BagNum)
 ```
 
+
 ##### Proportion....
 
 Or, if I want to calculate what the **proportion** of each color is within each bag:
+
 
 ```{r}
 # proportion of each color within bag
@@ -188,6 +195,7 @@ df$redp <- df$Red/df$BagCount
 # show the results
 head(df)
 ```
+
 
 ##### Tidy comment:
 
@@ -206,6 +214,8 @@ One thing that is clearly missing from the data collection is the **Bag Size.**
 Not recorded? Well, this is a job for data visualization! Let's plot the sizes in our data set!
 
 Since this analysis is about **bags**, we'll use the non-Tidy data set (df).
+
+
 
 ```{r}
 # Do as histogram - shows a first glance
@@ -306,7 +316,7 @@ df %>% filter (Kind == "Peanut") %>%
 
 Yes, that Peanut Bag, the really small one, is the Peanut *Fun Size*. I wish I had more of them in my data set!
 
-[Formatting note: Have you noticed at this point that the background color on these charts is changing? There's a reason! The light blue ("azure") is the general background, when Kind of M&M is various. The light tan color ("antiquewhite2") represents the Plain M&Ms, because those M&M bags are brown, and the light yellow ("cornsilk") is for the yellow-bagged, Peanut M&Ms!]
+<span style="color:156803">[Formatting note: Have you noticed at this point that the background color on these charts is changing? There's a reason! The light blue ("azure") is the general background, when Kind of M&M is various. The light tan color ("antiquewhite2") represents the Plain M&Ms, because those M&M bags are brown, and the light yellow ("cornsilk") is for the yellow-bagged, Peanut M&Ms!]</span>
 
 
 ### Assigning Bag Size
@@ -635,23 +645,32 @@ ggplot(df_tidy, aes(CountInBag/BagCount)) +
 
 By faceting on Color, and overlaying a Density curve we also see how Red, Brown and Yellow often have smaller numbers within a bag (given how much tighter the distributions are). But we also can see that Yellow, Organge and Blue have flatter, more even distributions. I think, a naive viewer of M&Ms would guess that all colors would have similar distributions.
 
-This may be a good time for a statistical test. Is the mean for Blue different than the mean for Red?
+This may be a good time for a statistical test. Is the mean for Blue different than the mean for the least numerous, Red? Is Blue different than the mean for the second most numerous, Orange?
 
 ```{r}
-#test Plain, Blue vs. Red
+#test Plain, Blue vs. Red and then Blue vs. Orange
 xblue <- df_tidy %>% filter(Kind=="Plain",MMColor=="Blue")
 yred <-  df_tidy %>% filter(Kind=="Plain",MMColor=="Red")
+yorange <-  df_tidy %>% filter(Kind=="Plain",MMColor=="Orange")
 t.test(xblue$CountInBag , yred$CountInBag)
+t.test(xblue$CountInBag , yorange$CountInBag)
 
-#test Peanut, Blue vs. Red
+
+#test Peanut, Blue vs. Red and then Blue vs. Orange
 xblue <- df_tidy %>% filter(Kind=="Peanut",MMColor=="Blue")
 yred <-  df_tidy %>% filter(Kind=="Peanut",MMColor=="Red")
+yorange <-  df_tidy %>% filter(Kind=="Peanut",MMColor=="Orange")
 t.test(xblue$CountInBag , yred$CountInBag)
+t.test(xblue$CountInBag , yorange$CountInBag)
+
+#test Blue vs. Orange across whole sample
+xblue <- df_tidy %>% filter(MMColor=="Blue")
+yorange <-  df_tidy %>% filter(MMColor=="Orange")
+t.test(xblue$CountInBag , yorange$CountInBag)
 
 ```
 
-Our eyes do not deceive us! Yes, that's statistically different. Even when dividing between Plain and Peanut.
-
+Blue is most certainly present more frequently than Red. Even if you divide the sample between Peanut and Plain, the tests come out clearly. However, Blue is not statistically different from Orange. This tells us that while counts of all colors are not the same, there isn't really a significant difference in the most numerous.
 
 ### Scatterplot Matrix?
 
@@ -722,28 +741,28 @@ Let's review my original questions and how they turned out:
 
 * how often is there only one of one color?
 
-*For a Regular-sized, Plain bag of M&Ms, it's pretty unusual! However, for bags with smaller counts, it can happen pretty regularly. I've yet to run the probability calculations to see if the rate is higher or lower than it "should be"*
+    <span style="color:#8C0ACA">*For a Regular-sized, Plain bag of M&Ms, it's pretty unusual! However, for bags with smaller counts, it can happen pretty regularly. I've yet to run the probability calculations to see if the rate is higher or lower than it "should be"* </span>
 
 * how does a bag have only five of the six colors?
 
-*This is equally unusual for Regular, Plain M&Ms, but again, with smaller-count bags (Fun Size, or Peanut Regular Size), it can happen more often*
+    <span style="color:#8C0ACA">*This is equally unusual for Regular, Plain M&Ms, but again, with smaller-count bags (Fun Size, or Peanut Regular Size), it can happen more often*</span>
 
 * does blue really dominate the counts, as it seems to?
 
-*Blue did show up more frequently than any other color, and it was significantly more than the least frequent color (Red)*
+    <span style="color:#8C0ACA">*Blue did show up more frequently than any other color, and it was significantly more than the least frequent color (Red). But it was not dominant overall.*</span>
 
 * how does the color distribution differ by size of bag?
     + are smaller bags more variable? 
      
-    *In the sense that smaller bags are more likely to have missing colors, yes. But in the sense that a larger-count bag can have a lot more of one color, no.* 
+      <span style="color:#8C0ACA">*In the sense that smaller bags are more likely to have missing colors, yes. But in the sense that a larger-count bag can have a lot more of one color, no.* </span>
     
     + are smaller bags more likely to have missing colors?
     
-    *Yes!*
+      <span style="color:#8C0ACA">*Yes!*</span>
     
 * do Peanut and Plain M&Ms have similar color distrubtions?
 
-*Yes, and that was one of the more surprising findings (the Mosaic chart)*
+    <span style="color:#8C0ACA">*Yes, and that was one of the more surprising findings (the Mosaic chart)*</span>
 
 
 I hope you had some fun thinking about the delicious candy and the things we could do with data visualization in analyzing the colors! I know this was fun for me.
