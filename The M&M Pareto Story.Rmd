@@ -46,12 +46,12 @@ I became fascinated by what I was seeing because I saw so much variation. I mean
 As I looked at these pictures, I came to be curious about a number of things:
 
 * how often is there only one of one color?
-* how does a bag have only five of the six colors?
+* how often does a bag have only five of the six colors?
 * does blue really dominate the counts, as it seems to?
 * how does the color distribution differ by size of bag?
     + are smaller bags more variable? 
     + are smaller bags more likely to have missing colors?
-* do Peanut and Plain M&Ms have similar color distrubtions?
+* do Peanut and Plain M&Ms have similar color distributions?
 
 ## Why Pareto Charts of M&Ms
 
@@ -87,7 +87,7 @@ ggplot(dfcase, aes(fct_infreq(colorsm)))+
 ```
 
 
-This *Dot Plot* is not very satisfying. Notice how each colum is labeled?  Maybe we can adjust the sizes of the circles and decrease the gaps, but that might be a lot of work. We can, in fact, remove those labels, as I will show in the next kind of chart of the same data:
+This *Dot Plot* is not very satisfying. Notice how each column is labeled?  Maybe we can adjust the sizes of the circles and decrease the gaps, but that might be a lot of work. We can, in fact, remove those labels, as I will show in the next kind of chart of the same data:
 
 
 ```{r}
@@ -158,9 +158,9 @@ head(df_tidy)
 ```
 
 
-##### If "Bag" is the unit of analysis
+##### Since "Bag" is the unit of analysis ....
 
-As I analyzed this data, however, I found that I wanted to know things about the **bags** more often than I wanted to find the attributes of the set as a whole, as if the bags weren't dumped all together.  For example, I wanted to add the **total number of M&Ms** to each bag:
+As I analyzed this data, however, I found that I wanted to know things about the **bags** more often than I wanted to find the attributes of the set as a whole, as if the bags weren't dumped all together.  For example, I wanted to add the **total number of M&Ms** in each bag as a data attribute of each bag:
 
 
 ```{r}
@@ -209,7 +209,7 @@ Now, let's get to analyzing this data!
 
 One thing that is clearly missing from the data collection is the **Bag Size.** 
 
-*M&Ms come in different sizes. There's a pretty tpyical size (which I call **Regular**), and there's the size you most often see around Halloween (a small bag callled **Fun Size** -- I like to joke that it would be more fun if it were bigger).*
+<span style="color:#156803">*M&Ms come in different sizes. There's a pretty typical size (which I call **Regular**), and there's the size you most often see around Halloween (a small bag callled **Fun Size** -- I like to joke that it would be more fun if it were bigger).*</span>
 
 Not recorded? Well, this is a job for data visualization! Let's plot the sizes in our data set!
 
@@ -286,7 +286,7 @@ ggplot(df, aes(BagCount))+
 
 Now we can more clearly see the ranges for the Plain *Fun Size* and the Peanut *Regular*. And the one bag of Peanut Butter. It is worth noting: Peanut M&Ms are bigger, and hence there are fewer in them for a common size bag. There are lots of sources that explain that most candies are sold in weight-groupings.
 
-If we seperate them out, we can better define the size-ranges:
+If we separate them out, we can better define the size-ranges:
 
 ```{r}
 # facet wrap to look at that range seperately
@@ -316,7 +316,7 @@ df %>% filter (Kind == "Peanut") %>%
 
 Yes, that Peanut Bag, the really small one, is the Peanut *Fun Size*. I wish I had more of them in my data set!
 
-<span style="color:156803">[Formatting note: Have you noticed at this point that the background color on these charts is changing? There's a reason! The light blue ("azure") is the general background, when Kind of M&M is various. The light tan color ("antiquewhite2") represents the Plain M&Ms, because those M&M bags are brown, and the light yellow ("cornsilk") is for the yellow-bagged, Peanut M&Ms!]</span>
+<span style="color:#156803">[Formatting note: Have you noticed at this point that the background color on these charts is changing? There's a reason! The light blue ("azure") is the general background, when **Kind** of M&M is various. The light tan color ("antiquewhite2") represents the **Plain** M&Ms, because those M&M bags are brown, and the light yellow ("cornsilk") is for the yellow-bagged, **Peanut** M&Ms!]</span>
 
 
 ### Assigning Bag Size
@@ -477,7 +477,7 @@ df %>% filter(Kind=="Peanut") %>%
 
 This looks a little more odd. For example, *Plain:Fun Size*: It seems like a lot of the bags have missing colors (look at the tall bar at 0.00). This is also the case for *Regular:Peanut*, which we saw, earlier, has about the same number of M&Ms as a Plain:Fun Size bag does.
 
-It's also the case that, though there is a some variation, it is not nearly as wide as the maxmimum. The minimums range from 0% to a bit of 10%.
+It's also the case that, though there is a some variation, it is not nearly as wide as the maximum. The minimums range from 0% to a bit of 10%.
 
 ## Color Analysis: Missing Colors
 
@@ -535,7 +535,7 @@ ggplot(dfzero, aes(x=reorder(KindSize,-bagswithmissingp), y=bagswithmissingp)) +
 
 ![](Graphs/07MissingbyKindSize.png)
 
-I find this very interesting! The smallest bags, *Plain:Fun Size*, have the highest frequency of missing a color. While I don't have a lot of *Plain:Sharing Size* in the data set, there are none with misssing colors. So the larger the count of M&Ms in the bag, the lower the chance of a missing color (and vice versa?). Here's a great opportunity to see if a Scatterplot helps.
+I find this very interesting! The smallest bags, *Plain:Fun Size*, have the highest frequency of missing a color. While I don't have a lot of *Plain:Sharing Size* in the data set, there are none with missing colors. So the larger the count of M&Ms in the bag, the lower the chance of a missing color (and vice versa?). Here's a great opportunity to see if a Scatterplot helps.
 
 ```{r, eval=FALSE}
 # scatter plot that!
@@ -548,7 +548,7 @@ ggplot(df, aes(x=BagCount, y=minp)) +
 
 Well.... not so much. I mean, there is this really odd curve where the smaller the count in a set of bags, the higher the minimum proportion is. But mostly, the problem is that it doesn't show us much more than the bar graph did. But that was a fun example of data exploration, no?
 
-## Color Analysis: The lonely M&M
+## Color Analysis: The lonely, Brown M&M
 
 Remember that bag of M&Ms that set me down the path of collecting this data? At last, lets check the data set to see how often that happens!
 
@@ -643,7 +643,23 @@ ggplot(df_tidy, aes(CountInBag/BagCount)) +
         panel.grid.minor = element_line(color="grey95")) 
 ```
 
-By faceting on Color, and overlaying a Density curve we also see how Red, Brown and Yellow often have smaller numbers within a bag (given how much tighter the distributions are). But we also can see that Yellow, Organge and Blue have flatter, more even distributions. I think, a naive viewer of M&Ms would guess that all colors would have similar distributions.
+By faceting on Color, and overlaying a Density curve we also see how Red, Brown and Yellow often have smaller numbers within a bag (given how much tighter the distributions are). But we also can see that Yellow, Orange and Blue have flatter, more even distributions. I think, a naive viewer of M&Ms would guess that all colors would have similar distributions.
+
+Hey... Isn't this a perfect time for a Ridgeline plot? That's what I thought when I was trying to compare the distributions of the six colors via the Facet Wrap.
+
+```{r}
+#ridgeline
+ggplot(df_tidy, aes(x= CountInBag/BagCount, y=reorder(MMColor,-CountInBag/BagCount, median)))+
+  ggridges::geom_density_ridges(fill="lightgreen", alpha=.5) +
+  ggtitle("Density Curve of Proportion of a Color in a Bag, by Color") +
+  xlab("Proportion of a Color in a Bag") +
+  ylab(NULL) +
+  theme(panel.background = element_rect(fill="azure"))
+```
+
+Much better! It shows how much sharper the modes are for the three least numerous colors, while the more numerous ones have flatter and wider distributions. It seems that Blue, Orange and Green all had more bags with high proportions.
+
+And still....
 
 This may be a good time for a statistical test. Is the mean for Blue different than the mean for the least numerous, Red? Is Blue different than the mean for the second most numerous, Orange?
 
@@ -685,7 +701,7 @@ df %>% filter(Kind != "Peanut Butter") %>%
           title="Scatterplot Matrix of Color Count in Bags")
 ```
 
-What I love about this is the distributions that it shows and how easy it is to see the difference between the counts in the Regular Size Peanut Bags (which have about 20 M&Ms) and the Plain ones (which have about 50 M&Ms). And you can see how much wider the distribution is for each color in the more numerous, Plain Regular bags.
+I love this because it shows the distributions, and it is easy it is to see the difference between the counts in the Regular Size Peanut Bags (which have about 20 M&Ms) and the Plain ones (which have about 50 M&Ms). And you can see how much wider the distribution is for each color in the more numerous, Plain Regular bags.
 
 You can also read off this chart that there are correlations between each color in the Plain bags, the lowest being Brown to Red (the least numerous), and the highest being Green to Red. 
 
@@ -698,7 +714,7 @@ What if we factor out the size of the bag and make use of the proportion columns
 df %>% filter(Kind != "Peanut Butter") %>%
   ggpairs(columns = 12:17,
           mapping=aes(color = Kind),
-          title="Scatterplot Matrix of Color Count in Bags")
+          title="Scatterplot Matrix of Color Proportion in Bags")
 ```
 
 Looks like a whole lot of noise? Doesn't it? So, it may be safer to conclude that there are really no strong relationships between the colors in a bag, which actually makes a lot more sense.
@@ -743,9 +759,9 @@ Let's review my original questions and how they turned out:
 
     <span style="color:#8C0ACA">*For a Regular-sized, Plain bag of M&Ms, it's pretty unusual! However, for bags with smaller counts, it can happen pretty regularly. I've yet to run the probability calculations to see if the rate is higher or lower than it "should be"* </span>
 
-* how does a bag have only five of the six colors?
+* how often does a bag have only five of the six colors?
 
-    <span style="color:#8C0ACA">*This is equally unusual for Regular, Plain M&Ms, but again, with smaller-count bags (Fun Size, or Peanut Regular Size), it can happen more often*</span>
+    <span style="color:#8C0ACA">*This is also pretty unusual for Regular, Plain M&Ms, but again, with smaller-count bags (Fun Size, or Peanut Regular Size), it can happen more often*</span>
 
 * does blue really dominate the counts, as it seems to?
 
@@ -760,14 +776,14 @@ Let's review my original questions and how they turned out:
     
       <span style="color:#8C0ACA">*Yes!*</span>
     
-* do Peanut and Plain M&Ms have similar color distrubtions?
+* do Peanut and Plain M&Ms have similar color distributions?
 
     <span style="color:#8C0ACA">*Yes, and that was one of the more surprising findings (the Mosaic chart)*</span>
 
 
 I hope you had some fun thinking about the delicious candy and the things we could do with data visualization in analyzing the colors! I know this was fun for me.
 
-Last point I want to make: **more data?**  Would you consider adding to the data set? All you have to do is:
+Last point: **more data?**  Would you consider adding to the data set? All you have to do is:
 
 * Open a bag of M&Ms
 * Sort them by color

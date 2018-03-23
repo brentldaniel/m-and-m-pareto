@@ -195,6 +195,14 @@ ggplot(df_tidy, aes(CountInBag/BagCount)) +
         panel.grid.major = element_line(color="grey90"),
         panel.grid.minor = element_line(color="grey95")) 
   
+#ridgeline
+ggplot(df_tidy, aes(x= CountInBag/BagCount, y=reorder(MMColor,-CountInBag/BagCount, median)))+
+  ggridges::geom_density_ridges(fill="lightgreen", alpha=.5) +
+  ggtitle("Density Curve of Proportion of a Color in a Bag, by Color") +
+  xlab("Proportion of a Color in a Bag") +
+  ylab(NULL) +
+  theme(panel.background = element_rect(fill="azure"))
+
 # mosaic? keep playing with it. Review the basics so you get this right
 library(grid)
 library(vcd)
@@ -220,7 +228,6 @@ ggplot(df_tidy, aes(CountInBag)) +
   theme(panel.background = element_rect(fill="azure"),
         panel.grid.major = element_line(color="grey90"),
         panel.grid.minor = element_line(color="grey95")) 
-
 
 
 
@@ -394,6 +401,10 @@ xblue <- df_tidy %>% filter(Kind=="Peanut",MMColor=="Blue")
 yred <-  df_tidy %>% filter(Kind=="Peanut",MMColor=="Red")
 yorange <-  df_tidy %>% filter(Kind=="Peanut",MMColor=="Orange")
 t.test(xblue$CountInBag , yred$CountInBag)
+t.test(xblue$CountInBag , yorange$CountInBag)
+
+xblue <- df_tidy %>% filter(MMColor=="Blue")
+yorange <-  df_tidy %>% filter(MMColor=="Orange")
 t.test(xblue$CountInBag , yorange$CountInBag)
 
 
