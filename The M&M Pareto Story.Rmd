@@ -33,12 +33,7 @@ And recently, I compiled the posts into a data set.
 
 ## M&Ms and the questions I might ask about colors
 
-This story is about data, how to manipulate it and analyze it with data visualization tools, and in so doing explore many aspects of the colors of M&Ms! It is my hope that in reading this document, you will find:
-
-* An amusing story about candy
-* An example of inquiry into a data set
-* Various examples of using graphs, with code, to examine the data
-
+  
 But back to the candy!
 
 I became fascinated by what I was seeing because I saw so much variation. I mean, the naive person might just assume that every bag had (roughly) the same amount of each color. You could imagine a manufacturing process that did that, right? But could you imagine a manufacturing process that wasn't predictable in terms of the distribution of colors? That's what I was seeing!
